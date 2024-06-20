@@ -1,0 +1,111 @@
+﻿@* @model LicenseApp.ViewModels.PaymentViewModel
+@{
+    ViewData["Title"] = "Payment Information";
+}
+
+<h2>Payment Information</h2>
+
+<div>
+    <h4>Application No: @Model.ApplicationNo</h4>
+    <h4>Application Fees: @Model.ApplicationFees</h4>
+    <h4>License Fees: @Model.LicenseFees</h4>
+    <h4>Transaction Fees: @Model.TransactionFees</h4>
+    <h4>Total Fees: @Model.TotalFees</h4>
+</div>
+
+<form asp-action="LicenseDetails" method="post">
+    <input type="hidden" asp-for="ApplicationNo" />
+    <input type="hidden" asp-for="ApplicationId" />
+    <input type="hidden" asp-for="TotalFees" />
+    <div class="form-group">
+        <input type="submit" value="Pay Now" class="btn btn-primary" />
+    </div>
+</form>
+ *@
+
+ 
+@* 
+@model LicenseApp.ViewModels.PaymentViewModel
+@{
+    ViewData["Title"] = "Payment Information";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Payment Information</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-3 text-right font-weight-bold">Application No:</div>
+                <div class="col-3 text-left">@Model.ApplicationNo</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3 text-right font-weight-bold">Application Fees:</div>
+                <div class="col-3 text-left">@Model.ApplicationFees</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3 text-right font-weight-bold">License Fees:</div>
+                <div class="col-3 text-left">@Model.LicenseFees</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3 text-right font-weight-bold">Transaction Fees:</div>
+                <div class="col-3 text-left">@Model.TransactionFees</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3 text-right font-weight-bold text-danger">Total Fees:</div>
+                <div class="col-3 text-left text-danger font-weight-bold">@Model.TotalFees</div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="LicenseDetails" method="post" class="mt-4">
+        <input type="hidden" asp-for="ApplicationNo" />
+        <input type="hidden" asp-for="ApplicationId" />
+        <input type="hidden" asp-for="TotalFees" />
+        <div class="form-group text-center">
+            <input type="submit" value="Pay Now" class="btn btn-primary btn-lg" />
+        </div>
+    </form>
+</div> *@
+@model LicenseApp.ViewModels.PaymentViewModel
+@{
+    ViewData["Title"] = "Payment Information";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Payment Information</h2>
+
+    <div class="card">
+        <div class="card-body ml-5">
+            <div class="row justify-content-center mb-3">
+                <div class="col-2 text-right font-weight-bold">Application No:</div>
+                <div class="col-2 text-left">@Model.ApplicationNo</div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-2 text-right font-weight-bold">Application Fees:</div>
+                <div class="col-2 text-left">@Model.ApplicationFees <span>Kyats</span> </div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-2 text-right font-weight-bold">License Fees:</div>
+                <div class="col-2 text-left">@Model.LicenseFees  <span>Kyats</span></div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-2 text-right font-weight-bold">Transaction Fees:</div>
+                <div class="col-2 text-left">@Model.TransactionFees  <span>Kyats</span></div>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <div class="col-2 text-right font-weight-bold text-danger">Total Fees:</div>
+                <div class="col-2 text-left text-danger font-weight-bold">@Model.TotalFees  <span>Kyats</span></div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="LicenseDetails" method="post" class="mt-4">
+        <input type="hidden" asp-for="ApplicationNo" />
+        <input type="hidden" asp-for="ApplicationId" />
+        <input type="hidden" asp-for="TotalFees" />
+        <div class="form-group text-center">
+            <input type="submit" value="Pay Now" class="btn btn-primary btn-lg" />
+        </div>
+    </form>
+</div>

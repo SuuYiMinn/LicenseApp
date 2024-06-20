@@ -1,0 +1,142 @@
+﻿@*  
+@model LicenseApp.ViewModels.LicenseDetailsViewModel
+@{
+    ViewData["Title"] = "License Information";
+}
+
+<h2>License Information</h2>
+
+<div>
+    <h4>Application No: @Model.ApplicationNo</h4>
+    <h4>Company Name: @Model.CompanyName</h4>
+    <h4>Sakhan Name: @Model.SakhanName</h4>
+    <h4>Licens No: @Model.LicenseNo</h4>
+</div>
+
+<h4>Items</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LicenseItems)
+        {
+            <tr>
+                <td>@item.ItemName</td>
+                <td>@item.Quantity</td>
+                <td>@item.UnitName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="form-group">
+    <a href="@Url.Action("Index", "Applications")" class="btn btn-primary">Done</a>
+</div>
+ ">License No:</h6>
+                <p class="ml-3">@Model.LicenseNo</p>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-4">Items</h4>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LicenseItems)
+            {
+                <tr>
+                    <td>@item.ItemName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group text-center mt-4">
+        <a href="@Url.Action("Index", "Applications")" class="btn btn-primary btn-lg">Done</a>
+    </div>
+</div>
+ *@
+
+        @model LicenseApp.ViewModels.LicenseDetailsViewModel
+@{
+    ViewData["Title"] = "License Information";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">License Information</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <h6 class="font-weight-bold">Application No:</h6>
+                </div>
+                <div class="col-md-9">
+                    <p>@Model.ApplicationNo</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <h6 class="font-weight-bold">Company Name:</h6>
+                </div>
+                <div class="col-md-9">
+                    <p>@Model.CompanyName</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <h6 class="font-weight-bold">Sakhan Name:</h6>
+                </div>
+                <div class="col-md-9">
+                    <p>@Model.SakhanName</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <h6 class="font-weight-bold">License No:</h6>
+                </div>
+                <div class="col-md-9">
+                    <p>@Model.LicenseNo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-4">Items</h4>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LicenseItems)
+            {
+                <tr>
+                    <td>@item.ItemName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group text-center mt-4">
+        <a href="@Url.Action("Index", "Applications")" class="btn btn-primary btn-lg">Done</a>
+    </div>
+</div>

@@ -1,0 +1,225 @@
+﻿@model LicenseApp.ViewModels.ApplicationCreateViewModel
+@{
+    ViewData["Title"] = "Create Application";
+}
+
+<h2>Create Application</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label asp-for="ApplicationNo" class="control-label mb-2">Application No</label>
+        <input asp-for="ApplicationNo" class="form-control" readonly />
+    </div>
+    @* <p>Create Date: @Model.CreateDate.ToString("yyyy-MM-dd")</p>
+    <p>Last Date: @Model.LastDate.ToString("yyyy-MM-dd")</p> *@
+    <div class="form-group">
+        <label asp-for="CreateDate" class="control-label mb-2">Application Create Date</label>
+        <input type="text" class="form-control" value="@Model.CreateDate.ToString("dd-MM-yyyy")" readonly />
+        <input asp-for="CreateDate" type="hidden" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LastDate" class="control-label mb-2">Application Last Date</label>
+        <input asp-for="LastDate" class="form-control" type="hidden" />
+       
+        <input type="text" class="form-control" value="@Model.LastDate.ToString("dd-MM-yyyy")" readonly />
+        
+       
+    </div>
+    <div class="form-group">
+        <label asp-for="CompanyName" class="control-label mb-2 mt-2">Company Name</label>
+        <input asp-for="CompanyName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SakhanId" class="control-label mb-2 mt-2">Sakhan</label>
+        <select asp-for="SakhanId" class="form-control">
+            @foreach (var sakhan in Model.Sakhans)
+            {
+                <option value="@sakhan.Id">@sakhan.SakhanName</option>
+            }
+        </select>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h4>To add Item</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="itemSelect" class="control-label mb-2">Item</label>
+                <select id="itemSelect" class="form-control">
+                    <option value="">Select Item</option>
+                    @foreach (var item in Model.Items)
+                    {
+                        <option value="@item.Id">@item.ItemName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        @* <div class="col-md-3">
+            <div class="form-group">
+                <label for="quantityInput" class="control-label mb-2">Quantity</label>
+                <input type="number" id="quantityInput" class="form-control" placeholder="Quantity" />
+            </div>
+        </div> *@
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="quantityInput" class="control-label mb-2">Quantity</label>
+                <input type="number" id="quantityInput" class="form-control" placeholder="Quantity" step="0.0001" min="0" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="unitSelect" class="control-label mb-2">Unit</label>
+                <select id="unitSelect" class="form-control">
+                    <option value="">Select Unit</option>
+                    @foreach (var unit in Model.Units)
+                    {
+                        <option value="@unit.Id">@unit.UnitName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <!-- Action Label Column -->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="addItemButton" class="control-label mb-2">Action</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Add Button Column -->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block" id="addItemButton">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mt-4 mb-3">Added Items</h4>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="addedItemsTable">
+                @foreach (var item in Model.LicenseItems)
+                {
+                    <tr>
+                        <td>@item.ItemId</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.UnitId</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+        
+
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+</form>
+
+@* @section Scripts {
+    <script>
+        document.getElementById('addItemButton').addEventListener('click', function () {
+            var itemSelect = document.getElementById('itemSelect');
+            var quantityInput = document.getElementById('quantityInput');
+            var unitSelect = document.getElementById('unitSelect');
+
+            var itemId = itemSelect.value;
+            var itemName = itemSelect.options[itemSelect.selectedIndex].text;
+            var quantity = quantityInput.value;
+            var unitId = unitSelect.value;
+            var unitName = unitSelect.options[unitSelect.selectedIndex].text;
+
+            if (itemId && quantity && unitId) {
+                // Add row to the addedItemsTable
+                var tableRow = `
+                                    <tr>
+                                        <td>${itemName}</td>
+                                        <td>${quantity}</td>
+                                        <td>${unitName}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Delete</button>
+                                            <input type="hidden" name="LicenseItems[${itemId}].ItemId" value="${itemId}" />
+                                            <input type="hidden" name="LicenseItems[${itemId}].Quantity" value="${quantity}" />
+                                            <input type="hidden" name="LicenseItems[${itemId}].UnitId" value="${unitId}" />
+                                        </td>
+                                    </tr>`;
+                document.getElementById('addedItemsTable').insertAdjacentHTML('beforeend', tableRow);
+
+                // Clear inputs
+                itemSelect.value = '';
+                quantityInput.value = '';
+                unitSelect.value = '';
+            }
+        });
+
+        function removeRow(button) {
+            button.parentElement.parentElement.remove();
+        }
+    </script>
+} *@
+
+<!-- JavaScript for adding items -->
+@section Scripts {
+    <script>
+        document.getElementById('addItemButton').addEventListener('click', function () {
+            var itemSelect = document.getElementById('itemSelect');
+            var quantityInput = document.getElementById('quantityInput');
+            var unitSelect = document.getElementById('unitSelect');
+
+            var itemId = itemSelect.value;
+            var itemName = itemSelect.options[itemSelect.selectedIndex].text;
+            
+            var quantity = parseFloat(quantityInput.value).toFixed(4);
+            var unitId = unitSelect.value;
+            var unitName = unitSelect.options[unitSelect.selectedIndex].text;
+
+            if (itemId && quantity && unitId) {
+                // Add row to the addedItemsTable
+                var tableRow = `
+                            <tr>
+                                <td>${itemName}</td>
+                                <td>${quantity}</td>
+                                <td>${unitName}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Delete</button>
+                                    <input type="hidden" name="LicenseItems.Index" value="${itemId}" />
+                                    <input type="hidden" name="LicenseItems[${itemId}].ItemId" value="${itemId}" />
+                                    <input type="hidden" name="LicenseItems[${itemId}].Quantity" value="${quantity}" />
+                                    <input type="hidden" name="LicenseItems[${itemId}].UnitId" value="${unitId}" />
+                                </td>
+                            </tr>`;
+                document.getElementById('addedItemsTable').insertAdjacentHTML('beforeend', tableRow);
+
+                // Clear inputs
+                itemSelect.value = '';
+                quantityInput.value = '';
+                unitSelect.value = '';
+            }
+        });
+
+        function removeRow(button) {
+            button.parentElement.parentElement.remove();
+        }
+    </script>
+}
+
