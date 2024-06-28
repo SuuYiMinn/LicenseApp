@@ -4,6 +4,7 @@ using LicenseApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenseApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240627085758_addGateModel")]
+    partial class addGateModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,8 +91,6 @@ namespace LicenseApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SakhanId");
-
                     b.ToTable("Gates");
                 });
 
@@ -131,25 +132,14 @@ namespace LicenseApp.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ItemName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UnitName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -213,6 +203,9 @@ namespace LicenseApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("GateId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -229,6 +222,8 @@ namespace LicenseApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GateId");
 
                     b.HasIndex("SakhanCode")
                         .IsUnique();
@@ -274,17 +269,6 @@ namespace LicenseApp.Migrations
                     b.Navigation("Sakhan");
                 });
 
-            modelBuilder.Entity("LicenseApp.Models.Gate", b =>
-                {
-                    b.HasOne("LicenseApp.Models.Sakhan", "Sakhan")
-                        .WithMany()
-                        .HasForeignKey("SakhanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sakhan");
-                });
-
             modelBuilder.Entity("LicenseApp.Models.LicenseItem", b =>
                 {
                     b.HasOne("LicenseApp.Models.Application", null)
@@ -310,9 +294,21 @@ namespace LicenseApp.Migrations
                     b.Navigation("Unit");
                 });
 
+            modelBuilder.Entity("LicenseApp.Models.Sakhan", b =>
+                {
+                    b.HasOne("LicenseApp.Models.Gate", null)
+                        .WithMany("Sakhans")
+                        .HasForeignKey("GateId");
+                });
+
             modelBuilder.Entity("LicenseApp.Models.Application", b =>
                 {
                     b.Navigation("LicenseItems");
+                });
+
+            modelBuilder.Entity("LicenseApp.Models.Gate", b =>
+                {
+                    b.Navigation("Sakhans");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,7 +7,7 @@
 
     <div class="row">
         <!-- License Section -->
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="card text-center mb-4">
                 <div class="card-header">
                     License Application
@@ -15,7 +15,9 @@
                 <div class="card-body">
                     <p class="card-text mb-3">Manage your license applications and view the list of licenses.</p>
                     <div class="d-flex justify-content-center">
+                        <a href="@Url.Action("Details", "Licenses")" class="btn btn-primary mb-2 mx-2">License No Search</a>
                         <a href="@Url.Action("Index", "Applications")" class="btn btn-primary mb-2 mx-2">License List</a>
+                        <a href="@Url.Action("PaymentList", "Applications")" class="btn btn-primary mb-2 mx-2">Payment List</a>
                         <a href="@Url.Action("Create", "Applications")" class="btn btn-primary mb-2 mx-2">New License Application</a>
                     </div>
                 </div>
@@ -23,7 +25,7 @@
         </div>
 
         <!-- Setup Section -->
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="card text-center mb-4">
                 <div class="card-header">
                     Setup
@@ -34,6 +36,7 @@
                         <a href="@Url.Action("Index", "Sakhans")" class="btn btn-info mb-2 mx-2">Sakhan</a>
                         <a href="@Url.Action("Index", "Units")" class="btn btn-info mb-2 mx-2">Unit</a>
                         <a href="@Url.Action("Index", "Items")" class="btn btn-info mb-2 mx-2">Item</a>
+                        <a href="@Url.Action("Index", "Gates")" class="btn btn-info mb-2 mx-2">Gate</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,41 @@
+﻿
+@* @model LicenseApp.ViewModels.PaymentViewModel *@
+@model IEnumerable<LicenseApp.Models.Payment>
+
+@{
+    ViewData["Title"] = "Payment List";
+}
+
+<h2>Payment List</h2>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Application No</th>
+            <th>License No</th>
+            <th>Application Fees</th>
+            <th>License Fees</th>
+            <th>Transaction Fees</th>
+            <th>Total Fees</th>
+            <th>Payment Date</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var application in Model)
+        {
+            <tr>
+                <td>@application.ApplicationNo</td>
+                <td>@application.LicenseNo</td>
+                <td>@application.ApplicationFees <span>Kyats</span></td>
+                <td>@application.LicenseFees <span>Kyats</span></td>
+                <td>@application.TransactionFees <span>Kyats</span></td>
+                <td>@application.TotalFees <span>Kyats</span></td>
+                <td>@application.PaymentDate</td>
+                <td>
+                    <!-- Add any actions for editing or deleting applications here -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

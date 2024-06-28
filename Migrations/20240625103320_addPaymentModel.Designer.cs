@@ -4,6 +4,7 @@ using LicenseApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenseApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240625103320_addPaymentModel")]
+    partial class addPaymentModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,39 +63,6 @@ namespace LicenseApp.Migrations
                     b.ToTable("Applications");
                 });
 
-            modelBuilder.Entity("LicenseApp.Models.Gate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GateCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GateName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SakhanId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SakhanName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SakhanId");
-
-                    b.ToTable("Gates");
-                });
-
             modelBuilder.Entity("LicenseApp.Models.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -131,25 +101,14 @@ namespace LicenseApp.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ItemName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UnitId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UnitName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -190,9 +149,6 @@ namespace LicenseApp.Migrations
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("SakhanId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalFees")
                         .HasColumnType("decimal(18,2)");
@@ -264,17 +220,6 @@ namespace LicenseApp.Migrations
                 });
 
             modelBuilder.Entity("LicenseApp.Models.Application", b =>
-                {
-                    b.HasOne("LicenseApp.Models.Sakhan", "Sakhan")
-                        .WithMany()
-                        .HasForeignKey("SakhanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sakhan");
-                });
-
-            modelBuilder.Entity("LicenseApp.Models.Gate", b =>
                 {
                     b.HasOne("LicenseApp.Models.Sakhan", "Sakhan")
                         .WithMany()

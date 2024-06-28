@@ -11,6 +11,8 @@ namespace LicenseApp.Models
         [Required]
         public string SakhanName { get; set; }
         [Required]
+        public string SakhanShortName { get; set; }
+        [Required]
         [UniqueSakhanCode]
         public string SakhanCode { get; set; }
         public bool IsDeleted { get; set; } // Soft delete flag

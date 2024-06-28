@@ -39,7 +39,7 @@ namespace LicenseApp.Controllers
             }
             return View(item);
         }*/
-        public async Task<IActionResult> Create([Bind("SakhanName,SakhanCode")] Sakhan item)
+        public async Task<IActionResult> Create([Bind("SakhanName,SakhanShortName,SakhanCode")] Sakhan item)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace LicenseApp.Controllers
         // POST: Items/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,SakhanName,SakhanCode")] Sakhan item)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,SakhanName,SakhanShortName,SakhanCode")] Sakhan item)
         {
             if (id != item.Id)
             {

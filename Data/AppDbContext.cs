@@ -19,6 +19,9 @@ namespace LicenseApp.Data
         public DbSet<Unit> Units { get; set; }
         public DbSet<Application> Applications { get; set; }
         public DbSet<LicenseItem> LicenseItems { get; set; }
+        
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Gate> Gates { get; set; }
 
     }
     /* public class AppDbContext : DbContext

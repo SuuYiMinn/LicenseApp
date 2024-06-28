@@ -1,10 +1,10 @@
 ﻿
-@model IEnumerable<LicenseApp.Models.Sakhan>
+@model IEnumerable<LicenseApp.Models.Gate>
 @{
-    ViewData["Title"] = "Items";
+    ViewData["Title"] = "Gates";
 }
 
-<h1>Sakhans</h1>
+<h1>Gates</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
@@ -12,9 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Gate Name</th>
+            <th>Gate Code</th>
             <th>Sakhan Name</th>
-            <th>Sakhan Short Name</th>
-            <th>Sakhan Code</th>
 
             <th></th>
         </tr>
@@ -23,9 +23,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.GateName</td>
+                <td>@item.GateCode</td>
                 <td>@item.SakhanName</td>
-                <td>@item.SakhanShortName</td>
-                <td>@item.SakhanCode</td>
                 
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |

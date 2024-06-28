@@ -1,4 +1,4 @@
-﻿@model LicenseApp.Models.Sakhan
+﻿@model LicenseApp.Models.Gate
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,22 +12,23 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            Gate Name
+        </dt>
+        <dd class="col-sm-10">
+            @Model.GateName
+        </dd>
+        
+        <dt class="col-sm-2">
+            Gate Code
+        </dt>
+        <dd class="col-sm-10">
+            @Model.GateCode
+        </dd>
+        <dt class="col-sm-2">
             Sakhan Name
         </dt>
         <dd class="col-sm-10">
             @Model.SakhanName
-        </dd>
-        <dt class="col-sm-2">
-            Sakhan Short Name
-        </dt>
-        <dd class="col-sm-10">
-            @Model.SakhanShortName
-        </dd>
-        <dt class="col-sm-2">
-            Sakhan Code
-        </dt>
-        <dd class="col-sm-10">
-            @Model.SakhanCode
         </dd>
     </dl>
 

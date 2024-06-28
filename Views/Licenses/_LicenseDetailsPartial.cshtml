@@ -1,0 +1,211 @@
+﻿@model LicenseApp.ViewModels.LicenseSearchViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantity Balance Table</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form asp-action="Save" method="post">
+            @Html.AntiForgeryToken()
+
+            <h3>License Information</h3>
+            <div class="form-group">
+                <label>License Last Date</label>
+                <input type="text" class="form-control" value="@Model.Application.LastDate.ToString("dd-MM-yyyy")" disabled />
+            </div>
+            <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" class="form-control" value="@Model.Application.CompanyName" disabled />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="ApplicationId" value="@Model.Application.Id" />
+            </div>
+           @*  <div class="form-group">
+                <input type="hidden" asp-for="Items" value="@Model.Items" />
+            </div> *@
+            <h3>Vehicle Information</h3>
+            <div class="form-group">
+                <label asp-for="DriverName" class="control-label">Driver Name</label>
+                <input asp-for="DriverName" class="form-control" />
+                <span asp-validation-for="DriverName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverNRC" class="control-label">Driver NRC</label>
+                <input asp-for="DriverNRC" class="form-control" placeholder="e.g., 9/YaKaNa(Naing)123456" />
+                <span asp-validation-for="DriverNRC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehicleNo" class="control-label">Vehicle No</label>
+                <input asp-for="VehicleNo" class="form-control" />
+                <span asp-validation-for="VehicleNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GateId" class="control-label mb-2 mt-2">Gate</label>
+                <select asp-for="GateId" class="form-control">
+                    @foreach (var gate in Model.Gates)
+                    {
+                        <option value="@gate.Id">@gate.GateName</option>
+                    }
+                </select>
+            </div>
+
+            <h3>Items Information</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Balance</th>
+                        <th>Enter Quantity</th>
+                    </tr>
+                </thead>
+                @* <tbody id="tableBody">
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model.Items[i].Item.ItemName
+                                <input type="hidden" name="Items[@i].ItemName" asp-for="Items[i].Item.ItemName" value="@Model.Items[i].Item.ItemName" />
+                            </td>
+                            <td class="item-quantity" id="quantity-@i">
+                                @Model.Items[i].Quantity
+                                <input type="hidden" name="Items[@i].Quantity" asp-for="Items[i].Quantity" value="@Model.Items[i].Quantity" />
+                            </td>
+                            <td>
+                                @Model.Items[i].Unit.UnitName
+                                <input type="hidden" name="Items[@i].UnitName" asp-for="Items[i].Unit.UnitName" value="@Model.Items[i].Unit.UnitName" />
+                            </td>
+                            <td id="balance-@i" asp-for="@Model.Items[i].Balance">
+                                @Model.Items[i].Quantity
+                                <input type="hidden" name="Items[@i].Balance" asp-for="Items[i].Balance" value="@Model.Items[i].Balance" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control enter-quantity" id="amount-@i" name="Items[@i].Amount" oninput="updateBalance(@i)" />
+                            </td>
+                        </tr>
+                    }
+                </tbody> *@
+               @*  <tbody id="tableBody">
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model.Items[i].Item.ItemName
+                                <input type="hidden" name="Items[@i].ItemName" value="@Model.Items[i].Item.ItemName" />
+                            </td>
+                            <td class="item-quantity" id="quantity-@i">
+                                @Model.Items[i].Quantity
+                                <input type="hidden" name="Items[@i].Quantity" value="@Model.Items[i].Quantity" />
+                            </td>
+                            <td>
+                                @Model.Items[i].Unit.UnitName
+                                <input type="hidden" name="Items[@i].UnitName" value="@Model.Items[i].Unit.UnitName" />
+                            </td>
+                            <td id="balance-@i">
+                                @Model.Items[i].Balance
+                                <input type="number" name="Items[@i].Balance" value="@Model.Items[i].Balance" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control enter-quantity" id="amount-@i" name="Items[@i].Amount" oninput="updateBalance(@i)" />
+                            </td>
+                        </tr>
+                    }
+                </tbody> *@
+                <tbody id="tableBody">
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model.Items[i].Item.ItemName
+                                <input type="hidden" name="Items[@i].ItemName" value="@Model.Items[i].Item.ItemName" />
+                                <input type="hidden" name="Items[@i].Id" value="@Model.Items[i].Id" />
+                            </td>
+                            <td class="item-quantity" id="quantity-@i">
+                                @Model.Items[i].Quantity
+                                <input type="hidden" name="Items[@i].Quantity" value="@Model.Items[i].Quantity" />
+                            </td>
+                            <td>
+                                @Model.Items[i].Unit.UnitName
+                                <input type="hidden" name="Items[@i].UnitName" value="@Model.Items[i].Unit.UnitName" />
+                            </td>
+                            <td id="balance-@i">
+                               
+                                <input type="hidden" name="Items[@i].Balance" value="@Model.Items[i].Balance" />
+                                <span id="balanceText-@i">@Model.Items[i].Balance</span> <!-- Added span to show the balance -->
+                            </td>
+                            <td>
+                                <input type="number" class="form-control enter-quantity" id="amount-@i" name="Items[@i].Amount" oninput="updateBalance(@i)" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </form>
+    </div>
+
+   @*  <script>
+        function updateBalance(index) {
+            let quantity = parseFloat(document.getElementById("quantity-" + index).innerText);
+            let amount = parseFloat(document.getElementById("amount-" + index).value);
+            let balance = document.getElementById("balance-" + index);
+
+            if (!isNaN(amount)) {
+                let newBalance = quantity - amount;
+                if (newBalance < 0) {
+                    alert("Invalid: Balance cannot be negative");
+                } else {
+                    balance.innerText = newBalance;
+                    document.getElementsByName("Items[" + index + "].Balance")[0].value = newBalance; // Update the hidden balance field
+                }
+            } else {
+                balance.innerText = quantity;
+                document.getElementsByName("Items[" + index + "].Balance")[0].value = quantity; // Update the hidden balance field
+            }
+        }
+    </script> *@
+    <script>
+        function updateBalance(index) {
+            let quantity = parseFloat(document.getElementById("quantity-" + index).innerText);
+            let amount = parseFloat(document.getElementById("amount-" + index).value);
+            let balanceText = document.getElementById("balanceText-" + index); // Span element to show the balance
+            let balanceInput = document.querySelector(`input[name="Items[${index}].Balance"]`); // Hidden input for balance
+
+            if (!isNaN(amount)) {
+                let newBalance = balanceInput.value - amount;
+                if (newBalance < 0) {
+                    alert("Invalid: Balance cannot be negative");
+                } else {
+                    balanceText.innerText = newBalance;
+                    balanceInput.value = newBalance; // Update the hidden balance field
+                }
+            } else {
+                balanceText.innerText = quantity;
+                balanceInput.value = quantity; // Update the hidden balance field
+            }
+        }
+    </script>
+</body>
+</html>
